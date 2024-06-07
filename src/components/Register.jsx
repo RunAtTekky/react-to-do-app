@@ -1,15 +1,46 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import axios from "axios";
+import { Link, Navigate } from "react-router-dom";
+import { Context, server } from "../main";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     console.log(name, email, password);
+
+    try {
+      const { data } = await axios.post(
+        `${server}/users/new`,
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          withCredentials: true,
+        }
+      );
+      toast.success(data.message);
+      setIsAuthenticated(true);
+    } catch (error) {
+      toast.error("Some error");
+      console.log(error);
+      setIsAuthenticated(false);
+    }
   };
+
+  if (isAuthenticated) return <Navigate to={"/"} />;
+
   return (
     <div className="login">
       <section>
