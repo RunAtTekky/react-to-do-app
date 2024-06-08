@@ -7,9 +7,11 @@ import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
+    useContext(Context);
 
   const submitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
     console.log(email, password);
 
@@ -28,9 +30,11 @@ const Login = () => {
         }
       );
       toast.success(data.message);
+      setLoading(false);
       setIsAuthenticated(true);
     } catch (error) {
-      toast.error(error.message);
+      setLoading(false);
+      toast.error(error.response.data.message);
       console.log(error);
       setIsAuthenticated(false);
     }
@@ -56,7 +60,9 @@ const Login = () => {
             type="password"
             placeholder="password"
           />
-          <button type="submit">Login</button>
+          <button disabled={loading} type="submit">
+            Login
+          </button>
           <h4>Or</h4>
           <Link to="/register">Sign Up</Link>
         </form>

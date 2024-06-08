@@ -8,9 +8,11 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
+    useContext(Context);
 
   const submitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
     console.log(name, email, password);
 
@@ -31,10 +33,12 @@ const Register = () => {
         }
       );
       toast.success(data.message);
+      setLoading(false);
       setIsAuthenticated(true);
     } catch (error) {
+      setLoading(false);
       toast.error("Some error");
-      console.log(error);
+      console.log(error.response.data.message);
       setIsAuthenticated(false);
     }
   };
@@ -66,7 +70,9 @@ const Register = () => {
             type="password"
             placeholder="password"
           />
-          <button type="submit">Register</button>
+          <button disabled={loading} type="submit">
+            Register
+          </button>
           <h4>Or</h4>
           <Link to="/login">Log In</Link>
         </form>
