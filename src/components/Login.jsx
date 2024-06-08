@@ -33,9 +33,8 @@ const Login = () => {
       setLoading(false);
       setIsAuthenticated(true);
     } catch (error) {
-      setLoading(false);
       toast.error(error.response.data.message);
-      console.log(error);
+      setLoading(false);
       setIsAuthenticated(false);
     }
   };
