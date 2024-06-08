@@ -1,9 +1,9 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./components/Header";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Profile from "./components/Profile";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 import { Toaster } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import axios from "axios";
