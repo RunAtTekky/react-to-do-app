@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../main";
 import Loader from "../components/Loader";
 import { Navigate } from "react-router-dom";
@@ -11,8 +11,8 @@ const Profile = () => {
     <Loader />
   ) : (
     <div>
-      <h1>{user?.name}</h1>
-      <p>{user?.email}</p>
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
     </div>
   );
 };
