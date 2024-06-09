@@ -31,7 +31,7 @@ const Header = () => {
   return (
     <nav className="header">
       <div>
-        <h2>ToDoApp</h2>
+        <h2>KaamKarBhai</h2>
       </div>
       <article>
         <Link to={"/"}>Home</Link>

@@ -3,6 +3,7 @@ import { Context, server } from "../main";
 import Loader from "../components/Loader";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const { isAuthenticated, loading } = useContext(Context);
@@ -21,7 +22,10 @@ const Profile = () => {
       });
   });
 
-  if (!isAuthenticated) return <Navigate to={"/login"} />;
+  if (!isAuthenticated) {
+    toast.error("Login First");
+    return <Navigate to={"/login"} />;
+  }
 
   return loading ? (
     <Loader />
